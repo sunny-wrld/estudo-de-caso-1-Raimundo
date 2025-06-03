@@ -50,31 +50,6 @@ public class Conta {
         return false;
     }
 
-    /* public boolean depositaDinheiro(int numeroConta, double valor) {
-        Conta conta = this.bdContas.buscaConta(numeroConta);
-        if (conta == null || valor <= 0) {
-            return false;
-        }
-        return conta.creditaValor(valor, "Depósito em Dinheiro");
-    }
-
-    public boolean depositaCheque(int numeroConta, double valor) {
-        Conta conta = this.Contas.buscaConta(numeroConta);
-        if (conta == null || valor <= 0) {
-            return false;
-        }
-        return conta.creditaValor(valor, "Depósito em Cheque");
-    }
-
-    // public boolean transfereValor(int numeroConta, double valor, int senha) {
-        Conta conta = this.Contas.buscaConta(numeroConta);
-        if (conta == null || !this.debitaValor(valor, senha, "Transferência para conta " + numeroConta)) {
-            return false;
-        }
-        return conta.creditaValor(valor, "Transferência recebida de conta " + this.numero);
-    }
-    intelij que fez */
-
     public String verificaHistoricoDeLancamentos(int senha) {
         if(this.senha == senha) {
             return this.historico.geraHistoricoDeLancamentos();
