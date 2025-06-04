@@ -12,7 +12,6 @@ public class Main {
 
         Conta c1 = new Conta(1, cl1, 1000, 123);
         Conta c2 = new Conta(2, cl2, 1000, 123);
-        Conta c3 = new Conta(3, cl1, 1000, 123);
 
         CadastroContas bd = new CadastroContas(5);
 
