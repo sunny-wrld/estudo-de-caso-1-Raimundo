@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Terminal {
 
     private Caixa meuCaixa;
-    private int modoAtual = 1; // Modo padrão como cliente
+    private int modoAtual = 1;
 
     public Terminal(CadastroContas bdContas) {
         this.meuCaixa = new Caixa(this, bdContas);
@@ -126,7 +126,7 @@ public class Terminal {
             return sc.nextInt();
         } else {
             System.out.println("Erro na leitura de dados.");
-            sc.next(); // descarta entrada inválida
+            sc.next();
             return 0;
         }
     }
