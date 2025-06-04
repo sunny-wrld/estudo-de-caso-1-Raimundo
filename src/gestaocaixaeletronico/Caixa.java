@@ -11,6 +11,7 @@ public class Caixa {
     public Caixa(Terminal terminal, CadastroContas bdContas) {
         this.meuTerminal = terminal;
         this.bdContas = bdContas;
+        this.saldo = 2000;
     }
 
     public double verificaSaldo(int numero, int senha) {
@@ -68,6 +69,22 @@ public class Caixa {
         return conta.creditaValor(valor, "Depósito em Cheque");
     }
 
+    public boolean efetuaDepositoDinheiro(int numeroConta, double valor) {
+        Conta conta = this.bdContas.buscaConta(numeroConta);
+        if (conta != null && valor > 0) {
+            return conta.creditaValor(valor, "Depósito em Dinheiro");
+        }
+        return false;
+    }
+
+    public boolean efetuaDepositoCheque(int numeroConta, double valor) {
+        Conta conta = this.bdContas.buscaConta(numeroConta);
+        if (conta != null && valor > 0) {
+            return conta.creditaValor(valor, "Depósito em Cheque");
+        }
+        return false;
+    }
+
     public boolean transfereValor(int origem, int destino, double valor, int senhaOrigem) {
         if (valor <= 0) {
             return false;
@@ -87,5 +104,17 @@ public class Caixa {
         }
 
         return false;
+    }
+
+    public boolean efetuaTransferencia(int origem, int destino, double valor, int senhaOrigem) {
+        return transfereValor(origem, destino, valor, senhaOrigem);
+    }
+
+    public String consultaExtrato(int numeroConta, int senha) {
+        Conta conta = this.bdContas.buscaConta(numeroConta);
+        if (conta != null && conta.validaSenha(senha)) {
+            return conta.getExtrato();
+        }
+        return null;
     }
 }

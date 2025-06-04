@@ -51,10 +51,19 @@ public class Conta {
     }
 
     public String verificaHistoricoDeLancamentos(int senha) {
-        if(this.senha == senha) {
+        if (this.senha == senha) {
             return this.historico.geraHistoricoDeLancamentos();
         }
         return null;
     }
 
-}
+    public boolean validaSenha(int senha) {
+        return this.senha == senha;
+    }
+
+    public String getExtrato() {
+        return this.historico.geraHistoricoDeLancamentos();
+    }
+    }
+
+

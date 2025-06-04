@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import gestaocaixaeletronico.*;
 import gestaocontas.*;
@@ -22,8 +22,6 @@ public class Main {
 
         Terminal meuTerminal = new Terminal(bd);
         meuTerminal.iniciaOperacao();
-
-
 
     }
 

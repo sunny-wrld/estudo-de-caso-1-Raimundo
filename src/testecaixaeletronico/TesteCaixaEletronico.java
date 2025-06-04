@@ -25,6 +25,7 @@ public class TesteCaixaEletronico {
         caixa.transfereValor(1, 2, 150, 123);
         caixa.efetuaSaque(2, 50, 321);
 
+
         System.out.println("Extrato 1:");
         System.out.println(c1.verificaHistoricoDeLancamentos(336));
         System.out.println("Extrato 2:");
