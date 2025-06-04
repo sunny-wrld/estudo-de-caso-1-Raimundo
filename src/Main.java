@@ -17,7 +17,6 @@ public class Main {
 
         bd.adicionaConta(c1);
         bd.adicionaConta(c2);
-        bd.adicionaConta(c3);
 
         Terminal meuTerminal = new Terminal(bd);
         meuTerminal.iniciaOperacao();
