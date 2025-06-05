@@ -6,16 +6,71 @@ public class Terminal {
 
     private Caixa meuCaixa;
     private int modoAtual = 1;
+    private final int senhaAdmin = 3323;
 
     public Terminal(CadastroContas bdContas) {
         this.meuCaixa = new Caixa(this, bdContas);
     }
 
     public void iniciaOperacao() {
-        int opcao;
-        opcao = this.getOpcao();
+        while (true) {
+            this.solicitaModo();
+            if (modoAtual == 0) {
+                if (!menuManutencao()) break;
+            } else {
+                if (!menuUsuario()) break;
+            }
+        }
+        System.out.println("Encerrando o terminal.");
+    }
 
-        while (opcao != 0) {
+    private boolean menuManutencao() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("=== Menu de Manutenção ===");
+            System.out.println("1 - Consultar saldo do caixa");
+            System.out.println("2 - Recarregar caixa");
+            System.out.println("9 - Voltar ao menu de modo");
+            System.out.println("0 - Sair do terminal");
+            int opcao = this.getInt("opção desejada");
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("Saldo atual do caixa: " + meuCaixa.getSaldoCaixa());
+                    break;
+                case 2:
+                    int senha = this.getInt("Senha do Administrador");
+                    if (senha == senhaAdmin) {
+                        this.meuCaixa.recarrega();
+                        System.out.println("Caixa recarregado com sucesso.");
+                    } else {
+                        System.out.println("Senha de administrador incorreta. Operação não permitida.");
+                    }
+                    break;
+                case 9:
+                    return true;
+                case 0:
+                    return false;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        }
+    }
+
+    private boolean menuUsuario() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("=== Menu do Usuário ===");
+            System.out.println("1 - Consulta Saldo");
+            System.out.println("2 - Saque");
+            System.out.println("3 - Depósito em dinheiro");
+            System.out.println("4 - Depósito em cheque");
+            System.out.println("5 - Transferência");
+            System.out.println("6 - Consultar extrato");
+            System.out.println("9 - Voltar ao menu de modo");
+            System.out.println("0 - Sair do terminal");
+            int opcao = this.getInt("opção desejada");
+
             switch (opcao) {
                 case 1:
                     double saldo = this.meuCaixa.verificaSaldo(
@@ -80,15 +135,31 @@ public class Terminal {
                         System.out.println("Conta/senha inválida");
                     }
                     break;
-                case 7:
-                    this.meuCaixa.recarrega();
-                    break;
+                case 9:
+                    return true;
+                case 0:
+                    return false;
                 default:
                     System.out.println("Opção inválida.");
-                    break;
             }
-            opcao = this.getOpcao();
         }
+    }
+
+    private void solicitaModo() {
+        Scanner sc = new Scanner(System.in);
+        int modo;
+        do {
+            System.out.println("Escolha o modo do terminal:");
+            System.out.println("0 - Manutenção (Administrador)");
+            System.out.println("1 - Operação Normal");
+            System.out.print("Modo: ");
+            while (!sc.hasNextInt()) {
+                System.out.println("Digite 0 ou 1.");
+                sc.next();
+            }
+            modo = sc.nextInt();
+        } while (modo != 0 && modo != 1);
+        this.setModo(modo);
     }
 
     public void setModo(int modo) {
@@ -97,37 +168,13 @@ public class Terminal {
         }
     }
 
-    private int getOpcao() {
-        int opcao;
-        do {
-            System.out.println("Escolha uma opção:");
-            System.out.println("1 - Consulta Saldo");
-            System.out.println("2 - Saque");
-            System.out.println("3 - Depósito em dinheiro");
-            System.out.println("4 - Depósito em cheque");
-            System.out.println("5 - Transferência");
-            System.out.println("6 - Consultar extrato");
-            System.out.println("7 - Recarregar Caixa");
-            System.out.println("0 - Sair");
-            opcao = this.getInt("opção desejada");
-            if (opcao < 0 || opcao > 7) {
-                System.out.println("Opção inválida.");
-                opcao = 0;
-            }
-        } while (opcao == 0);
-
-        return opcao;
-    }
-
     private int getInt(String mensagem) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entre com " + mensagem + ":");
-        if (sc.hasNextInt()) {
-            return sc.nextInt();
-        } else {
-            System.out.println("Erro na leitura de dados.");
+        while (!sc.hasNextInt()) {
+            System.out.println("Valor inválido. Tente novamente.");
             sc.next();
-            return 0;
         }
+        return sc.nextInt();
     }
 }

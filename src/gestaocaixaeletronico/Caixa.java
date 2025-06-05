@@ -117,4 +117,8 @@ public class Caixa {
         }
         return null;
     }
+
+    public double getSaldoCaixa() {
+        return this.saldo;
+    }
 }
